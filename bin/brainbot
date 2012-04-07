@@ -7,19 +7,19 @@ var LinkManager = require('../lib/link-manager');
 var CouchManager = require('../lib/couch-manager');
 var ConfigManager = require('../lib/config-manager');
 
-var master = new Hook({ name: 'brainbot-master' });
 var config = new ConfigManager().get();
+
+var master = new Hook(config.master);
 var couchManager = new CouchManager(config.couch.db, config.couch.port, config.host);
 
 master.on('hook::ready', function() {
-  master.spawn([config.irc, config.couch]);
-
+  master.spawn(config.instances);
 });
 
 master.on('children::ready', function() {
   master.on('*::*::msg', function(data) {
     var links = LinkManager.getContext(data);
-    links.forEach(function(link) {
+    inks.forEach(function(link) {
       master.emit("master::newLink", link);
       couchManager.add(link);
     });
