@@ -16,7 +16,8 @@
   "dependencies": {
     "hook.io": ">=0.8.0",
     "hook.io-irc": ">=0.6.0",
-    "hook.io-couch": "git://github.com/Daroth/couch.git#master"
+    "hook.io-couch": "git://github.com/Daroth/couch.git#master",
+    "felix-couchdb": ">=1.0.0"
   },
   "devDependencies": {
     "vows": ">=0.6.0"
