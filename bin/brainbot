@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+var IRC   = require('hook.io-irc').IRC;
+var CouchDB = require('hook.io-couch').CouchHook;
+var Hook = require('hook.io').Hook;
+var LinkManager = require('../lib/link-manager');
+
+var master = new Hook({ name: 'brainbot-master' });
+
+master.on('hook::ready', function() {
+  master.spawn([
+    {
+      'name': 'brainbot-irc',
+      'type': 'irc',
+      'irc-server': 'irc.epiknet.net',
+      'port': 6667,
+      'channels': [ '#brainbot-test' ],
+    }, 
+    {
+      'name': 'brainbot-couch',
+      'type': 'couch',
+      'feed-db': 'http://localhost:5984/brainbot-harvest',
+      'feed-since': 'now',
+      'feed-heartbeat': 3000,
+      'feed-inactivity': 8640000,
+      'feed-include-docs': true
+    }
+  ]);
+
+});
+
+master.on('children::ready', function() {
+  master.on('*::*::msg', function(data) {
+    var links = LinkManager.getContext(data);
+    links.forEach(function(link) {
+      master.emit("master::newLink", link);
+    });
+  });
+});
+
+  
+master.start();

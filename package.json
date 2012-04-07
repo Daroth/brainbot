@@ -1,0 +1,28 @@
+{
+  "author": "Daroth <daroth@braindead.fr> (http://braindead.fr/)",
+  "name": "brainbot",
+  "description": "Services monitoring for hypertext link aggregation",
+  "version": "0.0.1-beta",
+  "homepage": "http://braindead.fr",
+  "repository": {
+    "url": ""
+  },	
+  "main": "brainbot",
+  "bin": "bin/brainbot",
+  "scripts": {
+    "start": "node server.js",
+    "test": "test/brainbot-test"
+  },
+  "dependencies": {
+    "hook.io": ">=0.8.0",
+    "hook.io-irc": ">=0.6.0",
+    "hook.io-couch": "git://github.com/Daroth/couch.git#master"
+  },
+  "devDependencies": {
+    "vows": ">=0.6.0"
+  },
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
