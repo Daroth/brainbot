@@ -10,7 +10,6 @@
   "main": "brainbot",
   "bin": "bin/brainbot",
   "scripts": {
-    "start": "node server.js",
     "test": "test/brainbot-test"
   },
   "dependencies": {
